@@ -1,14 +1,16 @@
 package com.minsait.emprestimo.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,6 @@ public class Cliente {
 	
 	@Id
 	@NotNull(message = "O CPF é obrigatório.")
-    @Size(min = 11, max = 11, message = "O CPF deve ter 11 dígitos.")
 	private Long cpf;
 	
 	@NotBlank(message = "O telefone é obrigatório.")
@@ -39,6 +40,9 @@ public class Cliente {
     @NotNull(message = "O rendimento mensal é obrigatório.")
     @Min(value = 0, message = "O rendimento mensal deve ser positivo.")
     private Double rendimentoMensal;
+    
+    @OneToMany(mappedBy = "cpfCliente", cascade = CascadeType.ALL)
+    private List<Emprestimo> emprestimos;
 	
 }
 

@@ -9,6 +9,6 @@ public class ClienteNaoEncontradoException extends Exception {
 	private static final long serialVersionUID = 1L;
 	
 	public ClienteNaoEncontradoException(Long cpf) {
-		super(String.format("O CPF %i não foi encontrado", cpf));
+		super(String.format("O CPF %l não foi encontrado", cpf));
 	}
 }

@@ -1,7 +1,11 @@
 package com.minsait.emprestimo.dto;
+import java.util.List;
+
 import javax.persistence.Embedded;
 import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.entity.ClienteEndereco;
+import com.minsait.emprestimo.entity.Emprestimo;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,15 +22,17 @@ public class ClienteDTO {
     private String telefone;
     @Embedded private ClienteEndereco endereco;
     private Double rendimentoMensal;
+    private List<Emprestimo> emprestimos;
+
 
     public static ClienteDTO retornaCliente(Cliente cliente) {
-		ClienteDTO clienteDTO = new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getTelefone(), cliente.getEndereco(), cliente.getRendimentoMensal());
+		ClienteDTO clienteDTO = new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getTelefone(), cliente.getEndereco(), cliente.getRendimentoMensal(), cliente.getEmprestimos());
 		return clienteDTO;
 		
 	}
 	
 	public static Cliente retornaCliente(ClienteDTO clienteDTO) {
-		Cliente cliente= new Cliente(clienteDTO.getNome(), clienteDTO.getCpf(), clienteDTO.getTelefone(), clienteDTO.getEndereco(), clienteDTO.getRendimentoMensal());
+		Cliente cliente = new Cliente(clienteDTO.getNome(), clienteDTO.getCpf(), clienteDTO.getTelefone(), clienteDTO.getEndereco(), clienteDTO.getRendimentoMensal(), clienteDTO.getEmprestimos());
 		return cliente;
 		
 	}
