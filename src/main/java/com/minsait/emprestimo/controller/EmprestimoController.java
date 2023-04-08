@@ -22,7 +22,7 @@ import com.minsait.emprestimo.service.MensagemDeSucesso;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/clientes/{cpf}/emprestimos")
+@RequestMapping("/clientes/{cpfCliente}/emprestimos")
 @AllArgsConstructor
 public class EmprestimoController {
  
@@ -31,8 +31,8 @@ public class EmprestimoController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	// Necessário construir condicionamento da soma dos emprestimos em aberto.
-	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpf, @Valid @RequestBody Emprestimo emprestimo) {	
-		Emprestimo novoEmprestimo = this.emprestimoService.cadastrarEmprestimo(cpf, emprestimo);
+	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpfCliente, @Valid @RequestBody Emprestimo emprestimo) {	
+		Emprestimo novoEmprestimo = this.emprestimoService.cadastrarEmprestimo(cpfCliente, emprestimo);
 		return novoEmprestimo;
 	}
 	

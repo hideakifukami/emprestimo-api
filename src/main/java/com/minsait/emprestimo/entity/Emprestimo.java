@@ -25,11 +25,12 @@ public class Emprestimo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     
-    @NotNull(message = "O cliente deve estar cadastrado no sistema.")
     @ManyToOne
-    @JoinColumn(name = "cpfCliente", insertable = false, updatable = false)
+    @JoinColumn(name = "cliente")
+    private Cliente cliente;
+    
     @Setter
-    private Cliente cpfCliente;
+    private Long cpfCliente;
     
     @Setter
 	@NotNull(message = "O valor inicial é obrigatório.")
@@ -59,6 +60,8 @@ public class Emprestimo {
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 	}
+
+
 
 	
 }

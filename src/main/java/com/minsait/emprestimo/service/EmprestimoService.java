@@ -4,26 +4,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.entity.Emprestimo;
 import com.minsait.emprestimo.enums.RelacionamentoEnum;
 import com.minsait.emprestimo.exception.EmprestimoNaoEncontradoException;
-import com.minsait.emprestimo.repository.ClienteRepository;
 import com.minsait.emprestimo.repository.EmprestimoRepository;
 
 import lombok.AllArgsConstructor;
+
 
 @Service
 @AllArgsConstructor
 public class EmprestimoService {
 	
 	private EmprestimoRepository emprestimoRepository;
-	private ClienteRepository clienteRepository;
 
-	
-	public Emprestimo cadastrarEmprestimo(Long cpf, Emprestimo emprestimo) {
-		Cliente cpfClienteEncontrado = clienteRepository.findById(cpf).get();
-		emprestimo.setCpfCliente(cpfClienteEncontrado);
+	public Emprestimo cadastrarEmprestimo(Long cpfCliente, Emprestimo emprestimo) {	
+		emprestimo.setCpfCliente(cpfCliente);
 		RelacionamentoEnum relacionamento = emprestimo.getRelacionamento();
 		double valorInicial = emprestimo.getValorInicial();
 		emprestimo.setValorFinal(relacionamento.calcularValorFinal(valorInicial));

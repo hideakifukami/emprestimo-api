@@ -1,5 +1,6 @@
 package com.minsait.emprestimo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,8 +42,8 @@ public class Cliente {
     @Min(value = 0, message = "O rendimento mensal deve ser positivo.")
     private Double rendimentoMensal;
     
-    @OneToMany(mappedBy = "cpfCliente", cascade = CascadeType.ALL)
-    private List<Emprestimo> emprestimos;
+    @OneToMany(mappedBy = "cliente", targetEntity = Emprestimo.class, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
 	
 }
 
