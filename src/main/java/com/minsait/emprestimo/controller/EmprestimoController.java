@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minsait.emprestimo.entity.Emprestimo;
+import com.minsait.emprestimo.exception.ClienteNaoEncontradoException;
 import com.minsait.emprestimo.exception.EmprestimoNaoEncontradoException;
+import com.minsait.emprestimo.exception.ValorEmprestimosLimiteException;
 import com.minsait.emprestimo.service.EmprestimoService;
 import com.minsait.emprestimo.service.MensagemDeSucesso;
 
@@ -31,7 +33,7 @@ public class EmprestimoController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	// Necessário construir condicionamento da soma dos emprestimos em aberto.
-	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpfCliente, @Valid @RequestBody Emprestimo emprestimo) {	
+	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpfCliente, @Valid @RequestBody Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {	
 		Emprestimo novoEmprestimo = this.emprestimoService.cadastrarEmprestimo(cpfCliente, emprestimo);
 		return novoEmprestimo;
 	}

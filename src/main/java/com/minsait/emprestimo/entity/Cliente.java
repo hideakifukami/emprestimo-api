@@ -1,5 +1,6 @@
 package com.minsait.emprestimo.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class Cliente {
 
     @NotNull(message = "O rendimento mensal é obrigatório.")
     @Min(value = 0, message = "O rendimento mensal deve ser positivo.")
-    private Double rendimentoMensal;
+    private BigDecimal rendimentoMensal;
+    
+    
     
     @OneToMany(mappedBy = "cliente", targetEntity = Emprestimo.class, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();

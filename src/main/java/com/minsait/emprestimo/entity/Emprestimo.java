@@ -1,5 +1,6 @@
 package com.minsait.emprestimo.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -27,14 +28,13 @@ public class Emprestimo {
 	private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "cliente")
+    @JoinColumn(name = "cliente_cpf")
     private Cliente cliente;
         
-    @Setter
 	@NotNull(message = "O valor inicial é obrigatório.")
-    private double valorInicial;
+    private BigDecimal valorInicial;
 	
-    private double valorFinal;
+    private BigDecimal valorFinal;
     
 	@NotNull(message = "O relacionamento é obrigatório.")
     private RelacionamentoEnum relacionamento;
@@ -45,7 +45,7 @@ public class Emprestimo {
     @NotNull
     private LocalDate dataFinal;
 
-	public Emprestimo(double valorInicial, RelacionamentoEnum relacionamento, LocalDate dataInicial, LocalDate dataFinal) {
+	public Emprestimo(BigDecimal valorInicial, RelacionamentoEnum relacionamento, LocalDate dataInicial, LocalDate dataFinal) {
 		super();
 		this.valorInicial = valorInicial;
 		this.relacionamento = relacionamento;

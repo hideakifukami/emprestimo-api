@@ -1,14 +1,16 @@
 package com.minsait.emprestimo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
+import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.entity.Emprestimo;
 import com.minsait.emprestimo.enums.RelacionamentoEnum;
+import com.minsait.emprestimo.exception.ClienteNaoEncontradoException;
 import com.minsait.emprestimo.exception.EmprestimoNaoEncontradoException;
+import com.minsait.emprestimo.exception.ValorEmprestimosLimiteException;
 import com.minsait.emprestimo.repository.EmprestimoRepository;
-
+import com.minsait.emprestimo.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
 
 
@@ -17,11 +19,32 @@ import lombok.AllArgsConstructor;
 public class EmprestimoService {
 	
 	private EmprestimoRepository emprestimoRepository;
+	private ClienteRepository clienteRepository;
 
-	public Emprestimo cadastrarEmprestimo(Long cpfCliente, Emprestimo emprestimo) {	
+	public Emprestimo cadastrarEmprestimo(Long cpfCliente, Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {
+		Cliente cliente = clienteRepository.findById(cpfCliente).get();
+		
+		if (cliente == null) {
+			throw new ClienteNaoEncontradoException(cpfCliente);
+		}
+		
+		BigDecimal clienteRenda = cliente.getRendimentoMensal();
+		BigDecimal valorLimiteEmprestimo = clienteRenda.multiply(new BigDecimal(10));
+		
+		List<Emprestimo> clienteEmprestimo = cliente.getEmprestimos();
+		BigDecimal emprestimoSoma = clienteEmprestimo.stream().map(x -> x.getValorInicial()).reduce(emprestimo.getValorInicial(), BigDecimal::add);
+		
+		int comparacao = emprestimoSoma.compareTo(valorLimiteEmprestimo);
+		
+		if (comparacao == 1) {
+			throw new ValorEmprestimosLimiteException();
+		}
+		
+		int emprestimoQtd = cliente.getEmprestimos().size();
+		
 		RelacionamentoEnum relacionamento = emprestimo.getRelacionamento();
-		double valorInicial = emprestimo.getValorInicial();
-		emprestimo.setValorFinal(relacionamento.calcularValorFinal(valorInicial));
+		BigDecimal valorInicial = emprestimo.getValorInicial();
+		emprestimo.setValorFinal(relacionamento.calcularValorFinal(valorInicial, emprestimoQtd));
 		return this.emprestimoRepository.save(emprestimo);
 	}
 

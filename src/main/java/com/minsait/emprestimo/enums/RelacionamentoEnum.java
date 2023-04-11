@@ -1,32 +1,38 @@
 package com.minsait.emprestimo.enums;
 
+import java.math.BigDecimal;
+
 public enum RelacionamentoEnum {
 	
 	BRONZE {
 		@Override
-		public double calcularValorFinal(double valorInicial) {
-			return valorInicial * 1.8;
+		public BigDecimal calcularValorFinal(BigDecimal valorInicial, int emprestimoQtd) {
+			return valorInicial.multiply(new BigDecimal("1.8"));
 		}
 	},
 	
 	PRATA {
 		@Override
-		public double calcularValorFinal(double valorInicial) {
-			if (valorInicial > 5000) {
-				return valorInicial * 1.4;
+		public BigDecimal calcularValorFinal(BigDecimal valorInicial, int emprestimoQtd) {
+			int comparacao = valorInicial.compareTo(new BigDecimal("5000"));
+			if (comparacao == 1) {
+				return valorInicial.multiply(new BigDecimal("1.4"));
 			} else {
-				return valorInicial * 1.6;
+				return valorInicial.multiply(new BigDecimal("1.6"));
 			}			
 		}
 	},
 	
-//	Necessário implementar relacionamento ouro. 
 	OURO {
 		@Override
-		public double calcularValorFinal(double valorInicial) {
-			return valorInicial;
+		public BigDecimal calcularValorFinal(BigDecimal valorInicial, int emprestimoQtd) {
+			if (emprestimoQtd > 1) {
+				return valorInicial.multiply(new BigDecimal("1.3"));
+			} else {
+				return valorInicial.multiply(new BigDecimal("1.2"));
+			}
 		}
 	};
 
-	public abstract double calcularValorFinal(double valorInicial);
+	public abstract BigDecimal calcularValorFinal(BigDecimal valorInicial, int emprestimoQtd);
 }

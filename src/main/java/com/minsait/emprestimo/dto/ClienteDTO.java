@@ -1,4 +1,5 @@
 package com.minsait.emprestimo.dto;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Embedded;
@@ -21,7 +22,7 @@ public class ClienteDTO {
 	private Long cpf;
     private String telefone;
     @Embedded private ClienteEndereco endereco;
-    private Double rendimentoMensal;
+    private BigDecimal rendimentoMensal;
     private List<Emprestimo> emprestimos;
 
 
