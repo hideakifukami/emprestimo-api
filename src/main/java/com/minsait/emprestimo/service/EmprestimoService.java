@@ -42,9 +42,11 @@ public class EmprestimoService {
 		
 		int emprestimoQtd = cliente.getEmprestimos().size();
 		
+		emprestimo.setCliente(cliente);
 		RelacionamentoEnum relacionamento = emprestimo.getRelacionamento();
 		BigDecimal valorInicial = emprestimo.getValorInicial();
 		emprestimo.setValorFinal(relacionamento.calcularValorFinal(valorInicial, emprestimoQtd));
+		cliente.getEmprestimos().add(emprestimo);
 		return this.emprestimoRepository.save(emprestimo);
 	}
 

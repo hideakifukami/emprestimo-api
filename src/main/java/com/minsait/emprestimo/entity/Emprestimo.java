@@ -10,15 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.minsait.emprestimo.enums.RelacionamentoEnum;
-
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
 @NoArgsConstructor
 public class Emprestimo {
@@ -53,7 +50,33 @@ public class Emprestimo {
 		this.dataFinal = dataFinal;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
+	@JsonBackReference
+	public Cliente getCliente() {
+		return cliente;
+	}
 
+	public BigDecimal getValorInicial() {
+		return valorInicial;
+	}
+
+	public BigDecimal getValorFinal() {
+		return valorFinal;
+	}
+
+	public RelacionamentoEnum getRelacionamento() {
+		return relacionamento;
+	}
+
+	public LocalDate getDataInicial() {
+		return dataInicial;
+	}
+
+	public LocalDate getDataFinal() {
+		return dataFinal;
+	}
 	
 }

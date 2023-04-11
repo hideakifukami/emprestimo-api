@@ -3,7 +3,6 @@ package com.minsait.emprestimo.entity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,13 +13,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,9 +43,38 @@ public class Cliente {
     private BigDecimal rendimentoMensal;
     
     
-    
     @OneToMany(mappedBy = "cliente", targetEntity = Emprestimo.class, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public Long getCpf() {
+		return cpf;
+	}
+
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+
+	public ClienteEndereco getEndereco() {
+		return endereco;
+	}
+
+
+	public BigDecimal getRendimentoMensal() {
+		return rendimentoMensal;
+	}
+
+	@JsonManagedReference
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
 	
 }
 
