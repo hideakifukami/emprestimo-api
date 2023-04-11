@@ -70,6 +70,10 @@ public class ClienteService {
 				cliente.setRendimentoMensal(clienteEncontrado.getRendimentoMensal());
 			}
 			
+			if (cliente.getEmprestimos() == null) {
+				cliente.setEmprestimos(clienteEncontrado.getEmprestimos());
+			}
+			
 			return this.clienteRepository.save(cliente);
 		}
 		throw new ClienteNaoEncontradoException(cpf);

@@ -18,6 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Emprestimo {
 	
@@ -28,32 +29,23 @@ public class Emprestimo {
     @ManyToOne
     @JoinColumn(name = "cliente")
     private Cliente cliente;
-    
-    @Setter
-    private Long cpfCliente;
-    
+        
     @Setter
 	@NotNull(message = "O valor inicial é obrigatório.")
     private double valorInicial;
 	
-    @Setter
     private double valorFinal;
     
-    @Setter
 	@NotNull(message = "O relacionamento é obrigatório.")
     private RelacionamentoEnum relacionamento;
     
-    @Setter
     @NotNull
     private LocalDate dataInicial;
     
-    @Setter
     @NotNull
     private LocalDate dataFinal;
 
-	public Emprestimo(@NotNull(message = "O valor inicial é obrigatório.") double valorInicial,
-			@NotNull(message = "O relacionamento é obrigatório.") RelacionamentoEnum relacionamento,
-			@NotNull LocalDate dataInicial, @NotNull LocalDate dataFinal) {
+	public Emprestimo(double valorInicial, RelacionamentoEnum relacionamento, LocalDate dataInicial, LocalDate dataFinal) {
 		super();
 		this.valorInicial = valorInicial;
 		this.relacionamento = relacionamento;

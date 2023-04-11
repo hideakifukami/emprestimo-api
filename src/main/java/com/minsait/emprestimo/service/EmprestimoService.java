@@ -19,7 +19,6 @@ public class EmprestimoService {
 	private EmprestimoRepository emprestimoRepository;
 
 	public Emprestimo cadastrarEmprestimo(Long cpfCliente, Emprestimo emprestimo) {	
-		emprestimo.setCpfCliente(cpfCliente);
 		RelacionamentoEnum relacionamento = emprestimo.getRelacionamento();
 		double valorInicial = emprestimo.getValorInicial();
 		emprestimo.setValorFinal(relacionamento.calcularValorFinal(valorInicial));

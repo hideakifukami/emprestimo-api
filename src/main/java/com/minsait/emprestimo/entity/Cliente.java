@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class Cliente {
 	@NotNull(message = "O CPF é obrigatório.")
 	private Long cpf;
 	
-	@NotBlank(message = "O telefone é obrigatório.")
+	@NotEmpty(message = "O telefone é obrigatório.")
     private String telefone;
 
 	@Valid
