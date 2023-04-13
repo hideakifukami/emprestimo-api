@@ -1,4 +1,4 @@
-# CodeBank - FrontEnd
+# CodeBank - BackEnd
 
 Este projeto foi criado com a utilização de SpringBoot como framework para BackEnd. A Aplicação permite o gerenciamento de clientes e empréstimos, realizando operações CRUD em um banco de dados.
 
