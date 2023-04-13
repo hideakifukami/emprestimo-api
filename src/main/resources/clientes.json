@@ -7,7 +7,6 @@
 	    "endereco": {
 	      "rua": "Rua das Flores",
 	      "numero": 123,
-	      "complemento": "Apto 1",
 	      "cep": "01234567"
 	    },
 	    "rendimentoMensal": 5000.0
@@ -20,7 +19,6 @@
 	    "endereco": {
 	      "rua": "Rua dos Girassóis",
 	      "numero": 456,
-	      "complemento": "",
 	      "cep": "09876543"
 	    },
 	    "rendimentoMensal": 7500.0
@@ -33,7 +31,6 @@
 	    "endereco": {
 	      "rua": "Avenida Paulista",
 	      "numero": 1000,
-	      "complemento": "Sala 1500",
 	      "cep": "01234567"
 	    },
 	    "rendimentoMensal": 10000.0
@@ -46,7 +43,6 @@
 	    "endereco": {
 	      "rua": "Rua da Praia",
 	      "numero": 50,
-	      "complemento": "",
 	      "cep": "98765432"
 	    },
 	    "rendimentoMensal": 3000.0
@@ -59,7 +55,6 @@
 	    "endereco": {
 	      "rua": "Rua da Paz",
 	      "numero": 789,
-	      "complemento": "Casa 2",
 	      "cep": "01234567"
 	    },
 	    "rendimentoMensal": 6000.0
