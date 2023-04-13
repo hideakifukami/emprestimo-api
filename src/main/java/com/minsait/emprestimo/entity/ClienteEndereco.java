@@ -3,7 +3,7 @@ package com.minsait.emprestimo.entity;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,8 @@ public class ClienteEndereco {
     @NotNull(message = "O número é obrigatório")
     private int numero;
     
+    
     @NotEmpty(message = "O CEP é obrigatório")
-    @Size(min = 8, max = 8, message = "O CEP deve ter 8 dígitos")
+    @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos.")
     private String cep;
 }

@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,9 +30,11 @@ public class Cliente {
 	
 	@Id
 	@NotEmpty(message = "O CPF é obrigatório.")
+    @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 dígitos.")
 	private String cpf;
 	
 	@NotEmpty(message = "O telefone é obrigatório.")
+    @Pattern(regexp = "\\d{7,14}", message = "O telefone deve conter de 7 a 14 dígitos.")
     private String telefone;
 
 	@Valid
