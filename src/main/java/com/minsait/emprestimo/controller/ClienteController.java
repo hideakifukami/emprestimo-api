@@ -52,9 +52,7 @@ public class ClienteController {
 	
 	@PutMapping("/{cpf}")
 	public ClienteDTO alterarCliente(@PathVariable Long cpf, @Valid @RequestBody ClienteDTO cliente) throws ClienteNaoEncontradoException {
-		Cliente clienteRequest = ClienteDTO.retornaCliente(cliente);
-		Cliente clienteAlterado = this.clienteService.alterarCliente(cpf, clienteRequest);
-		
+		Cliente clienteAlterado = this.clienteService.alterarCliente(cpf, cliente);
 		return ClienteDTO.retornaCliente(clienteAlterado);
 	}
 }

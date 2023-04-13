@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
+import com.minsait.emprestimo.dto.ClienteDTO;
 import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.exception.ClienteNaoEncontradoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
@@ -46,7 +47,7 @@ public class ClienteService {
 		throw new ClienteNaoEncontradoException(cpf);
 	}
 	
-	public Cliente alterarCliente(Long cpf, @Valid Cliente cliente) throws ClienteNaoEncontradoException {
+	public Cliente alterarCliente(Long cpf, @Valid ClienteDTO cliente) throws ClienteNaoEncontradoException {
 		if (this.clienteRepository.existsById(cpf)) {
 			Cliente clienteEncontrado = this.clienteRepository.findById(cpf).get();
 			
@@ -74,7 +75,9 @@ public class ClienteService {
 				cliente.setEmprestimos(clienteEncontrado.getEmprestimos());
 			}
 			
-			return this.clienteRepository.save(cliente);
+			Cliente clienteAlterado = ClienteDTO.retornaCliente(cliente);
+			
+			return this.clienteRepository.save(clienteAlterado);
 		}
 		throw new ClienteNaoEncontradoException(cpf);
 

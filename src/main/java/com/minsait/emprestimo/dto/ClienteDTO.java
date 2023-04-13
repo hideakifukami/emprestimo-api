@@ -1,12 +1,10 @@
 package com.minsait.emprestimo.dto;
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.persistence.Embedded;
 import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.entity.ClienteEndereco;
 import com.minsait.emprestimo.entity.Emprestimo;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
