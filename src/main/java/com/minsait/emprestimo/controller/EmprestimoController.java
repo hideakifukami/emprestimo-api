@@ -34,25 +34,25 @@ public class EmprestimoController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	// Necessário construir condicionamento da soma dos emprestimos em aberto.
-	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpf, @Valid @RequestBody Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {	
+	public Emprestimo cadastrarEmprestimo(@PathVariable String cpf, @Valid @RequestBody Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {	
 		Emprestimo novoEmprestimo = this.emprestimoService.cadastrarEmprestimo(cpf, emprestimo);
 		return novoEmprestimo;
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public MensagemDeSucesso deletarEmprestimo(@PathVariable Long cpf, @PathVariable Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException {
+	public MensagemDeSucesso deletarEmprestimo(@PathVariable String cpf, @PathVariable Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException {
 		return this.emprestimoService.deletarEmprestimo(cpf, id);
 	}
 	
 	@GetMapping("/{id}")
-	public Emprestimo retornarEmprestimo(@PathVariable Long cpf, @PathVariable Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException, ClienteSemEmprestimosException {
+	public Emprestimo retornarEmprestimo(@PathVariable String cpf, @PathVariable Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException, ClienteSemEmprestimosException {
 		Emprestimo emprestimoEncontrado = this.emprestimoService.retornarEmprestimo(cpf, id);
 		return emprestimoEncontrado;
 	}
 	
 	@GetMapping
-	public List<Emprestimo> retornarTodosOsEmprestimos(@PathVariable Long cpf) throws ClienteNaoEncontradoException, ClienteSemEmprestimosException {
+	public List<Emprestimo> retornarTodosOsEmprestimos(@PathVariable String cpf) throws ClienteNaoEncontradoException, ClienteSemEmprestimosException {
 		List<Emprestimo> todosOsEmprestimos = this.emprestimoService.retornarTodosOsEmprestimos(cpf);
 		return todosOsEmprestimos;
 	}

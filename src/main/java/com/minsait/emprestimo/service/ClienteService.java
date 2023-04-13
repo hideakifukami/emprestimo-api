@@ -21,7 +21,7 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 
     public Cliente cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException {
-    	if (this.clienteRepository.existsById(cliente.getCpf())) {
+    	if (this.clienteRepository.findByCpf(cliente.getCpf()) != null) {
     		throw new ClienteJaCadastradoException(cliente.getCpf());
     	} else {
         
@@ -33,17 +33,17 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 	
-	public Cliente retornarCliente(Long cpf) throws ClienteNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			return  this.clienteRepository.findById(cpf).get();
+	public Cliente retornarCliente(String cpf) throws ClienteNaoEncontradoException {
+    	if (this.clienteRepository.findByCpf(cpf) != null) {
+			return  this.clienteRepository.findByCpf(cpf);
 		}
 		
 		throw new ClienteNaoEncontradoException(cpf);
 	}
 	
-	public MensagemDeSucesso deletarCliente(Long cpf) throws ClienteNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente clienteEncontrado = this.clienteRepository.findById(cpf).get();
+	public MensagemDeSucesso deletarCliente(String cpf) throws ClienteNaoEncontradoException {
+    	if (this.clienteRepository.findByCpf(cpf) != null) {
+			Cliente clienteEncontrado = this.clienteRepository.findByCpf(cpf);
 			this.clienteRepository.delete(clienteEncontrado);
 			MensagemDeSucesso mensagem = new MensagemDeSucesso();
 			mensagem.setMensagem("Registro de cliente deletado com sucesso!");
@@ -53,9 +53,9 @@ public class ClienteService {
 		throw new ClienteNaoEncontradoException(cpf);
 	}
 	
-	public Cliente alterarCliente(Long cpf, @Valid ClienteDTO cliente) throws ClienteNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente clienteEncontrado = this.clienteRepository.findById(cpf).get();
+	public Cliente alterarCliente(String cpf, @Valid ClienteDTO cliente) throws ClienteNaoEncontradoException {
+    	if (this.clienteRepository.findByCpf(cpf) != null) {
+			Cliente clienteEncontrado = this.clienteRepository.findByCpf(cpf);
 			
 			if (cliente.getNome() == null) {
 				cliente.setNome(clienteEncontrado.getNome());

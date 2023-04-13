@@ -27,8 +27,8 @@ public class Cliente {
 	private String nome;
 	
 	@Id
-	@NotNull(message = "O CPF é obrigatório.")
-	private Long cpf;
+	@NotEmpty(message = "O CPF é obrigatório.")
+	private String cpf;
 	
 	@NotEmpty(message = "O telefone é obrigatório.")
     private String telefone;
@@ -51,7 +51,7 @@ public class Cliente {
 	}
 
 
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 

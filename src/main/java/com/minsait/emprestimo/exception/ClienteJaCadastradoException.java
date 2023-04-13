@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ClienteJaCadastradoException extends Exception {
 	private static final long serialVersionUID = 5L;
 	
-	public ClienteJaCadastradoException(Long cpf) {
-		super(String.format("O CPF %l já foi cadastrado para outro cliente.", cpf));
+	public ClienteJaCadastradoException(String cpf) {
+		super(String.format("O CPF %s já foi cadastrado para outro cliente.", cpf));
 	}
 }

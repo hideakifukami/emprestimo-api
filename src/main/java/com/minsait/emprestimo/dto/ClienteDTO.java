@@ -17,7 +17,7 @@ import lombok.Setter;
 public class ClienteDTO {
 
 	private String nome;
-	private Long cpf;
+	private String cpf;
     private String telefone;
     @Embedded private ClienteEndereco endereco;
     private BigDecimal rendimentoMensal;

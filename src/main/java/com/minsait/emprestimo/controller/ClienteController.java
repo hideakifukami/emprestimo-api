@@ -40,19 +40,19 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{cpf}")
-	public Cliente retornarCliente(@PathVariable Long cpf) throws ClienteNaoEncontradoException {
+	public Cliente retornarCliente(@PathVariable String cpf) throws ClienteNaoEncontradoException {
 		Cliente clienteEncontrado = this.clienteService.retornarCliente(cpf);
 		return clienteEncontrado;
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{cpf}")
-	public MensagemDeSucesso deletarCliente(@PathVariable Long cpf) throws ClienteNaoEncontradoException {
+	public MensagemDeSucesso deletarCliente(@PathVariable String cpf) throws ClienteNaoEncontradoException {
 		return this.clienteService.deletarCliente(cpf);
 	}
 	
 	@PutMapping("/{cpf}")
-	public ClienteDTO alterarCliente(@PathVariable Long cpf, @Valid @RequestBody ClienteDTO cliente) throws ClienteNaoEncontradoException {
+	public ClienteDTO alterarCliente(@PathVariable String cpf, @Valid @RequestBody ClienteDTO cliente) throws ClienteNaoEncontradoException {
 		Cliente clienteAlterado = this.clienteService.alterarCliente(cpf, cliente);
 		return ClienteDTO.retornaCliente(clienteAlterado);
 	}

@@ -22,9 +22,9 @@ public class EmprestimoService {
 	private EmprestimoRepository emprestimoRepository;
 	private ClienteRepository clienteRepository;
 
-	public Emprestimo cadastrarEmprestimo(Long cpf, Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente cliente = clienteRepository.findById(cpf).get();
+	public Emprestimo cadastrarEmprestimo(String cpf, Emprestimo emprestimo) throws ClienteNaoEncontradoException, ValorEmprestimosLimiteException {
+		if (this.clienteRepository.findByCpf(cpf) != null) {
+			Cliente cliente = clienteRepository.findByCpf(cpf);
 			BigDecimal clienteRenda = cliente.getRendimentoMensal();
 			BigDecimal valorLimiteEmprestimo = clienteRenda.multiply(new BigDecimal(10));
 			
@@ -51,11 +51,11 @@ public class EmprestimoService {
 				
 	}
 
-	public MensagemDeSucesso deletarEmprestimo(Long cpf, Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Long cpfEmprestimo = this.emprestimoRepository.findById(id).get().getCliente().getCpf();
-			Long cpfCliente = this.clienteRepository.findById(cpf).get().getCpf();
-			if ( cpfEmprestimo == cpfCliente) {
+	public MensagemDeSucesso deletarEmprestimo(String cpf, Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException {
+		if (this.clienteRepository.findByCpf(cpf) != null) {
+			String cpfEmprestimo = this.emprestimoRepository.findById(id).get().getCliente().getCpf();
+			String cpfCliente = this.clienteRepository.findById(cpf).get().getCpf();
+			if (cpfEmprestimo.equals(cpfCliente)) {
 				Emprestimo emprestimoEncontrado = this.emprestimoRepository.findById(id).get();
 				this.emprestimoRepository.delete(emprestimoEncontrado);
 				MensagemDeSucesso mensagem = new MensagemDeSucesso();
@@ -70,9 +70,9 @@ public class EmprestimoService {
 		
 	}
 	
-	public Emprestimo retornarEmprestimo(Long cpf, Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException, ClienteSemEmprestimosException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente clienteEncontrado = this.clienteRepository.findById(cpf).get();
+	public Emprestimo retornarEmprestimo(String cpf, Long id) throws EmprestimoNaoEncontradoException, ClienteNaoEncontradoException, ClienteSemEmprestimosException {
+		if (this.clienteRepository.findByCpf(cpf) != null) {
+			Cliente clienteEncontrado = this.clienteRepository.findByCpf(cpf);
 			if (clienteEncontrado.getEmprestimos().size() != 0) {
 				if (this.emprestimoRepository.existsById(id)) {
 					return this.emprestimoRepository.findById(id).get();
@@ -87,9 +87,9 @@ public class EmprestimoService {
 
 		
 	
-	public List<Emprestimo> retornarTodosOsEmprestimos(Long cpf) throws ClienteNaoEncontradoException, ClienteSemEmprestimosException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente clienteEncontrado = this.clienteRepository.findById(cpf).get();
+	public List<Emprestimo> retornarTodosOsEmprestimos(String cpf) throws ClienteNaoEncontradoException, ClienteSemEmprestimosException {
+		if (this.clienteRepository.findByCpf(cpf) != null) {
+			Cliente clienteEncontrado = this.clienteRepository.findByCpf(cpf);
 			if (clienteEncontrado.getEmprestimos().size() != 0) {
 				return clienteEncontrado.getEmprestimos();
 			}
