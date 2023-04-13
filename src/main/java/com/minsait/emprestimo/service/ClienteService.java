@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.dto.ClienteDTO;
 import com.minsait.emprestimo.entity.Cliente;
+import com.minsait.emprestimo.exception.ClienteJaCadastradoException;
 import com.minsait.emprestimo.exception.ClienteNaoEncontradoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 
@@ -19,8 +20,13 @@ public class ClienteService {
 	
 	private ClienteRepository clienteRepository;
 
-    public Cliente cadastrarCliente(Cliente cliente) {
-        return this.clienteRepository.save(cliente);
+    public Cliente cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException {
+    	if (this.clienteRepository.existsById(cliente.getCpf())) {
+    		throw new ClienteJaCadastradoException(cliente.getCpf());
+    	} else {
+        
+    		return this.clienteRepository.save(cliente);
+    	}
     }
         		
 	public List<Cliente> retornarTodosOsClientes() {

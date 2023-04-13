@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.minsait.emprestimo.dto.ClienteDTO;
 import com.minsait.emprestimo.entity.Cliente;
+import com.minsait.emprestimo.exception.ClienteJaCadastradoException;
 import com.minsait.emprestimo.exception.ClienteNaoEncontradoException;
 import com.minsait.emprestimo.service.ClienteService;
 import com.minsait.emprestimo.service.MensagemDeSucesso;
@@ -27,7 +28,7 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente cadastrarCliente(@Valid @RequestBody Cliente cliente) {
+	public Cliente cadastrarCliente(@Valid @RequestBody Cliente cliente) throws ClienteJaCadastradoException {
 		Cliente novoCliente = this.clienteService.cadastrarCliente(cliente);
 		return novoCliente;
 	}
